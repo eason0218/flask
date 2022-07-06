@@ -1,11 +1,13 @@
-from unittest.mock import AsyncMockMixin
-from flask import Flask
+from typing import Collection
+from click import password_option
+from flask import *
+import pymongo
 from flask_login import LoginManager
-from flask import request
-from flask import redirect
 import json
-from flask import render_template
-from flask import session
+
+client = pymongo.MongoClient(
+    "mongodb+srv://root:zxc50053@mycluster.7tjho.mongodb.net/?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+db = client.member_system
 
 
 app = Flask(
@@ -15,57 +17,77 @@ app = Flask(
 
 # 所有在 static 資料夾底下的檔案，都對應到網址路徑/檔案名稱
 
-
-# @app.route("/getSum")
-# def getSum():
-#     maxNumber = request.args.get("max", 100)
-#     maxNumber = int(maxNumber)
-#     minNumber = request.args.get("min", 1)
-#     minNumber = int(minNumber)
-#     result = 0
-#     for n in range(minNumber, maxNumber+1):
-#         result += n
-#     return "結果:" + str(result)
-app.secret_key = "123456"  # 設定 Sessopm 密要
+app.secret_key = "zxc50053"
+# app.route("/")
 
 
 @app.route("/")
 def index():
-    return render_template("login.html")
+    return render_template("index.html")
 
 
-@app.route("/hello")
-def hello():
-    name = request.args.get("name", "")
-    session["username"] = name
-    return "你好 ，" + name
+@app.route("/member")
+def member():
+    if "nickname" in session:
+        return render_template("member.html")
+    else:
+        return redirect("/")
 
 
-@app.route("/talk")
-def talk():
-    name = session["username"]
-    return name+"很高興見到你"
+@app.route("/error")  # /error?msg=錯誤訊息
+def error():
+    message = request.args.get("msg", "發生錯誤，請聯繫客服")
+    return render_template("error.html", message=message)
 
 
-@app.route("/show")
-def show():
-    name = request.args.get("n", "")
-    return "歡迎光臨," + name
+@app.route("/signup", methods=["POST"])
+def signup():
+    # 從前端接收資料
+    nickname = request.form["nickname"]
+    email = request.form["email"]
+    password = request.form["password"]
+    # 根據接收到的資料，和資料庫互動
+    collection = db.user
+    # 檢查是否有相同 Email 的文件資料
+    result = collection.find_one({
+        "email": email
+    })
+    if result != None:
+        return redirect("/error?msg=信箱已經被註冊")
+    # 把資料放進資料庫，完成註冊
+    collection.insert_one({
+        "nickname": nickname,
+        "email": email,
+        "password": password
+    })
+    return redirect("/")
 
 
-@app.route("/page")
-def page():
-    return render_template("page.html")
+@app.route("/signin", methods=["POST"])
+def signin():
+    email = request.form["email"]
+    password = request.form["password"]
+
+    collection = db.user
+    # 檢查信箱密碼是否正確
+    result = collection.find_one({
+        "$and": [
+            {"email": email},
+            {"password": password}
+        ]
+    })
+    # 找不到對應資料，登入失敗，導向到錯誤頁面
+    if result == None:
+        return redirect("/error?msg=帳號或密碼輸入錯誤")
+    # 登入成功，導向到會員頁面
+    session["nickname"] = result["nickname"]
+    return redirect("/member")
 
 
-@app.route("/data")
-def handleData():
-    return "My Data"
-
-
-@app.route("/user/<username>")
-def handleUser(username):
-    return "Hello "+username
+@app.route("/signout")
+def signout():
+    del session["nickname"]
+    return redirect("/")
 
 
 app.run(port=3000)
