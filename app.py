@@ -1,3 +1,4 @@
+from contextlib import redirect_stderr
 from typing import Collection
 from click import password_option
 from flask import *
@@ -98,6 +99,11 @@ def register():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+@app.route("/test")
+def test():
+    return render_template("test.html")
 
 
 app.run(port=3000)
