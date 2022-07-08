@@ -17,13 +17,13 @@
         <div class="mainbody middle">
             <form action="/signin" method="POST" class="form-box front">
                 <div>
-                    <h1 style="text-align: center;">會員登入 </h1>
+                    <h1 style="text-align: center;color: white;">會員登入 </h1>
                 </div>
                 <div>
-                    <input class="input-normal" type="text" placeholder="UserAccount" name="email" />
-                    <input class="input-normal" type="password" placeholder="PassWord" name="password" />
+                    <input class="input-normal" type="text" placeholder="UserAccount" name="email" required />
+                    <input class="input-normal" type="password" placeholder="PassWord" name="password" required />
                     <button class="btn-submit" type="submit">
-                        <a href=""> 登入</a>
+                        <a> 登入</a>
                     </button>
                     <style>
                         a {
@@ -47,15 +47,16 @@
                 </div>
             </form>
             <!-- 对的你没看错，上下两个表单基本上没区别，一个front，一个back -->
-            <form class="form-box back">
+            <form action="/signup" class="form-box back" method="POST">
                 <div>
-                    <h1 style="text-align: center">會員註冊</h1>
+                    <h1 style="text-align: center;color: white;">會員註冊</h1>
                 </div>
                 <div>
-                    <input class="input-normal" type="text" placeholder="UserAccount" name="email" />
-                    <input class="input-normal" type="password" placeholder="PassWord" name="password" />
+                    <input class="input-normal" type="text" placeholder="請輸入暱稱" name="nickname" required />
+                    <input class="input-normal" type="text" placeholder="UserAccount" name="email" required />
+                    <input class="input-normal" type="password" placeholder="PassWord" name="password" required />
                     <button class="btn-submit" type="submit">
-                        註冊
+                        <a> 註冊</a>
                     </button>
                 </div>
                 <div>

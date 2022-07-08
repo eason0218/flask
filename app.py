@@ -49,6 +49,8 @@ def signup():
     password = request.form["password"]
     # 根據接收到的資料，和資料庫互動
     collection = db.user
+    if email is None:
+        return redirect("/error?msg=帳號不可為空白")
     # 檢查是否有相同 Email 的文件資料
     result = collection.find_one({
         "email": email
@@ -56,12 +58,14 @@ def signup():
     if result != None:
         return redirect("/error?msg=信箱已經被註冊")
     # 把資料放進資料庫，完成註冊
+
+    print(email)
     collection.insert_one({
         "nickname": nickname,
         "email": email,
         "password": password
     })
-    return redirect("/")
+    return redirect("/test")
 
 
 @app.route("/signin", methods=["POST"])
@@ -91,14 +95,14 @@ def signout():
     return redirect("/")
 
 
-@app.route("/register")
-def register():
-    return render_template("register.html")
+# @app.route("/register")
+# def register():
+#     return render_template("register.html")
 
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
+# @app.route("/login")
+# def login():
+#     return render_template("login.html")
 
 
 @app.route("/test")
