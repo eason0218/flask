@@ -180,4 +180,5 @@ def record():
     return redirect("/member")
 
 
-app.run(port=8080)
+# app.run(port=8080)
+app.run()
