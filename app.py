@@ -9,6 +9,7 @@ import requests
 from random import randint
 import certifi
 import ssl
+import os
 
 client = pymongo.MongoClient(
     "mongodb+srv://root:zxc50053@mycluster.7tjho.mongodb.net/?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
@@ -181,4 +182,5 @@ def record():
 
 
 # app.run(port=8080)
-app.run(port=33507)
+port = int(os.environ.get('PORT', 33507))
+app.run(debug=True, port=port)
