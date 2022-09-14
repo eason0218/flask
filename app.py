@@ -7,9 +7,11 @@ from flask_login import LoginManager
 import json
 import requests
 from random import randint
+import certifi
+import ssl
 
 client = pymongo.MongoClient(
-    "mongodb+srv://root:zxc50053@mycluster.7tjho.mongodb.net/?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
+    "mongodb+srv://root:zxc50053@mycluster.7tjho.mongodb.net/?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
 db = client.member_system
 
 
