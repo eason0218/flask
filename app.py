@@ -41,7 +41,7 @@ def msgsend():
     data = json.dumps({"sender": "Rasa", "message": val})
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     res = requests.post(
-        'https://cb7b-211-23-17-97.jp.ngrok.io/webhooks/rest/webhook', data=data, headers=headers)
+        'https://b695-211-23-17-97.jp.ngrok.io/webhooks/rest/webhook', data=data, headers=headers)
     res = res.json()
     print('------------------------')
     print(res)
