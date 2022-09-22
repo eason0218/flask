@@ -82,8 +82,7 @@
             </form> -->
             <div class="bubbleWrapper">
                 <div class="inlineContainer">
-                    <img class="inlineIcon"
-                        src="https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=360">
+                    <img class="inlineIcon" src="https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=360">
                     <div class="otherBubble other">
                         <a style="color:white" name="voi">你好，我是機器人！</a>
                     </div>
@@ -215,7 +214,7 @@
                                 src="https://cdn-icons-png.flaticon.com/512/1126/1126923.png?w=360">\
                             <div class="otherBubble other">\
                                 <img class="pic"\
-                                src="'+ ee['data']+'" style="height:20vw;width:20vw">\
+                                src="'+ ee['data'] + '" style="height:20vw;width:20vw">\
                             </div>\
                         </div><span class="other">'+ get_time() + '</span>\
                     </div > ')
@@ -378,9 +377,13 @@
     recognition.onstart = function () {
         console.log('開始辨識');
     };
+
+
+
+
     //recognition.onend = function () {
-      //  setTimeout(recognition.stop(), 5000);
-       // send.click();
+    //  setTimeout(recognition.stop(), 5000);
+    // send.click();
     //};
 
     recognition.onresult = function (event) {
@@ -395,13 +398,12 @@
     };
 
     talk.addEventListener("click", function () {
-        recognition.onstart();
+        recognition.start();
     })
 
     // talk.addEventListener("click", function () {
     //     recognition.start();
-    // })
-
+    // }
 
 
 
