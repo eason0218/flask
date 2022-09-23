@@ -354,9 +354,29 @@
         //     msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
         // speechSynthesis.speak(msg);
 
+        // if ('Google 國語（臺灣）' in voices) {
+        //     msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
+        //     speechSynthesis.speak(msg);
+        // } else {
+        //     speechSynthesis.speak(msg);
+        // }
+        // console.log(msg.voice)
 
-        msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
-        speechSynthesis.speak(msg);
+
+        if (msg.voice === null) {
+            msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
+            speechSynthesis.speak(msg);
+            console.log(msg.voice)
+        } if (msg.voice === null) {
+            speechSynthesis.speak(msg);
+            console.log(msg.voice);
+        }
+
+
+
+        // msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
+        // speechSynthesis.speak(msg);
+        // console.log(msg.voice)
     }
     speechSynthesis.addEventListener('play', voiceplay);
 
