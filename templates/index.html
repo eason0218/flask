@@ -363,15 +363,15 @@
         // console.log(msg.voice)
 
 
-        if (msg.voice === null) {
-            msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
-            speechSynthesis.speak(msg);
-            console.log(msg.voice)
-        } if (msg.voice === null) {
-            speechSynthesis.speak(msg);
-            console.log(msg.voice);
-        }
-
+        // if (msg.voice === null) {
+        //     msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
+        //     speechSynthesis.speak(msg);
+        //     console.log(msg.voice)
+        // } if (msg.voice === null) {
+        //     speechSynthesis.speak(msg);
+        //     console.log(msg.voice);
+        // }
+        speechSynthesis.speak(msg);
 
 
         // msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
