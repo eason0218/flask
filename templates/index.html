@@ -374,9 +374,17 @@
 
 
 
-        // msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
-        speechSynthesis.speak(msg);
+        msg.voice = voices.find(voice => voice.name === this.voice);
         console.log(msg.voice)
+        speechSynthesis.speak(msg)
+
+
+
+
+
+        // msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
+        // speechSynthesis.speak(msg);
+        // console.log(msg.voice)
     }
     speechSynthesis.addEventListener('play', voiceplay);
 
