@@ -379,7 +379,7 @@
         if (voices.length >= 1) {
             msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
         } else {
-            msg.voice = speechSynthesisVoice.default()
+            msg = speechSynthesis.default()
             print('沒找到')
         }
         // msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
