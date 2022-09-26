@@ -375,8 +375,15 @@
 
 
 
+        msg.lang = 'zh-TW';
+        if (voices.length >= 1) {
+            msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
+        } else {
+            msg.voice = speechSynthesisVoice.default()
+            print('沒找到')
+        }
+        // msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
 
-        msg.voice = voices.find(voice => voice.name === 'Google 國語（臺灣）');
         speechSynthesis.speak(msg);
         console.log(msg.voice)
     }
