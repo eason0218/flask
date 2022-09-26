@@ -1,5 +1,6 @@
 from contextlib import redirect_stderr
 from typing import Collection
+from urllib import response
 from click import password_option
 from flask import *
 import pymongo
@@ -10,6 +11,7 @@ from random import randint
 import certifi
 import ssl
 import os
+
 
 client = pymongo.MongoClient(
     "mongodb+srv://root:zxc50053@mycluster.7tjho.mongodb.net/?retryWrites=true&w=majority", ssl=True, ssl_cert_reqs='CERT_NONE')
@@ -43,10 +45,11 @@ def msgsend():
     res = requests.post(
         'https://7dfc-211-23-17-97.jp.ngrok.io/webhooks/rest/webhook', data=data, headers=headers)
     res = res.json()
-    
+
     print('------------------------')
     print(res)
     print('------------------------')
+
     if len(res) == 1:
         # val = res[0]['text']
         # return val
@@ -58,14 +61,14 @@ def msgsend():
             # 如果value=text就是文字
             # 如果png在image裡就是圖片
             # 不然就是影片
-            print(rr_list)
+            print(f'這是rr_list:{rr_list}')
             if rr_list[1] == 'text':
                 return_val.append({'type': 'text', 'data': rr['text']})
             elif '.jpg' in rr['image'] or '.png' in rr['image']:
                 return_val.append({'type': 'image', 'data': rr['image']})
             else:
                 return_val.append({'type': 'video', 'data': rr['image']})
-        print(return_val)
+        print(f'這是回傳的return_val:{return_val}')
         return json.dumps(return_val)
 
         # print(res)
